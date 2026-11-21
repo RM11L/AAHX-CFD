@@ -1,0 +1,202 @@
+{
+  "scope": "Code and small reconstruction inputs only",
+  "adaptation": "English repository paths; inert local settings paths redacted; numerical source tables unchanged",
+  "files": [
+    {
+      "file": "data/cfd_300_input_output.csv",
+      "source": "outputs/ATE_submission_package/data_code/CFD数据/CFD_300_input_output.csv",
+      "source_sha256": "0acb896f8e4ba7f1a6cb2b2a7b03c9bf917fe3db801e5d5443e9e7050fc16e88",
+      "repository_sha256": "0acb896f8e4ba7f1a6cb2b2a7b03c9bf917fe3db801e5d5443e9e7050fc16e88",
+      "adapted": false
+    },
+    {
+      "file": "data/cfd_54_input_output.csv",
+      "source": "outputs/ATE_submission_package/data_code/CFD数据/CFD_54_input_output.csv",
+      "source_sha256": "91d748f08f035018d2f834cec416398ef8e6a22328764b3858d38ce9bbd6a8df",
+      "repository_sha256": "91d748f08f035018d2f834cec416398ef8e6a22328764b3858d38ce9bbd6a8df",
+      "adapted": false
+    },
+    {
+      "file": "data/experimental_cfd_comparison_27.csv",
+      "source": "outputs/ATE_submission_package/data_code/CFD数据/实验_CFD对比27点.csv",
+      "source_sha256": "ec02928a643ccc43f9a38d6a4d9014b249a67051d170795ec1fccb9571684147",
+      "repository_sha256": "ec02928a643ccc43f9a38d6a4d9014b249a67051d170795ec1fccb9571684147",
+      "adapted": false
+    },
+    {
+      "file": "data/experimental_means_27.csv",
+      "source": "outputs/ATE_submission_package/data_code/实验数据/实验均值27点.csv",
+      "source_sha256": "3f9b09dee51610fe1993fbeab5e174d7bc89b2fee34f5a2acf6a7c3a1d82052a",
+      "repository_sha256": "3f9b09dee51610fe1993fbeab5e174d7bc89b2fee34f5a2acf6a7c3a1d82052a",
+      "adapted": false
+    },
+    {
+      "file": "data/case_repeatability.csv",
+      "source": "outputs/ATE_submission_package/data_code/实验数据/case_repeatability.csv",
+      "source_sha256": "470f97b6b023a22de8ab2951e5f47a288a56096986c437de0246ca4a905ef63b",
+      "repository_sha256": "470f97b6b023a22de8ab2951e5f47a288a56096986c437de0246ca4a905ef63b",
+      "adapted": false
+    },
+    {
+      "file": "data/experimental_pointwise_error_bars.csv",
+      "source": "outputs/ATE_submission_package/data_code/实验数据/experimental_pointwise_error_bars.csv",
+      "source_sha256": "5a1727f63d057866b7eb05954a9f202934eba113f5a998cb4ec592a48bc24612",
+      "repository_sha256": "5a1727f63d057866b7eb05954a9f202934eba113f5a998cb4ec592a48bc24612",
+      "adapted": false
+    },
+    {
+      "file": "data/fit_300_derived_reference.csv",
+      "source": "outputs/ATE_submission_package/data_code/计算说明/计算数据/300点拟合数据.csv",
+      "source_sha256": "2a96e8d93e499b5232e6d654c2f75ddbf297a1ce59ab50ff020dae62c28d36a3",
+      "repository_sha256": "2a96e8d93e499b5232e6d654c2f75ddbf297a1ce59ab50ff020dae62c28d36a3",
+      "adapted": false
+    },
+    {
+      "file": "data/paired_54_derived_reference.csv",
+      "source": "outputs/ATE_submission_package/data_code/计算说明/计算数据/54实验配对CFD关联式偏差.csv",
+      "source_sha256": "6aa13a4334a74e379afd34240240487d6d924724cf0a945bd5bbabade9e31296",
+      "repository_sha256": "6aa13a4334a74e379afd34240240487d6d924724cf0a945bd5bbabade9e31296",
+      "adapted": false
+    },
+    {
+      "file": "data/candidate_307_raw_K_mm.csv",
+      "source": "outputs/ATE_submission_package/data_code/复现资料/candidate_307_raw_K_mm.csv",
+      "source_sha256": "64806d0d63a49dc5b9766b2acdf97f07391bdffc2f3f410d954d6e72043e3e3d",
+      "repository_sha256": "64806d0d63a49dc5b9766b2acdf97f07391bdffc2f3f410d954d6e72043e3e3d",
+      "adapted": false
+    },
+    {
+      "file": "data/record_provenance.csv",
+      "source": "outputs/ATE_submission_package/data_code/复现资料/record_provenance.csv",
+      "source_sha256": "edd8c54fffdac25cdd7e9278c2e4c5ff9f644cd8c87902e5f1e9d20de583c20d",
+      "repository_sha256": "edd8c54fffdac25cdd7e9278c2e4c5ff9f644cd8c87902e5f1e9d20de583c20d",
+      "adapted": false
+    },
+    {
+      "file": "data/fitting_record_ids.csv",
+      "source": "outputs/ATE_submission_package/data_code/复现资料/fitting_record_ids.csv",
+      "source_sha256": "35fd72bebf09f7c091405a2e2ddc4f0cd3cf8ac52b746d6dce3b6563398583b0",
+      "repository_sha256": "35fd72bebf09f7c091405a2e2ddc4f0cd3cf8ac52b746d6dce3b6563398583b0",
+      "adapted": false
+    },
+    {
+      "file": "data/experimental_27_to_passages_54.csv",
+      "source": "outputs/ATE_submission_package/data_code/复现资料/experimental_27_to_passages_54.csv",
+      "source_sha256": "641591c28fe6515fa228c475999973548a9f7e0a31d06436148e11925cad9042",
+      "repository_sha256": "641591c28fe6515fa228c475999973548a9f7e0a31d06436148e11925cad9042",
+      "adapted": false
+    },
+    {
+      "file": "data/experimental_uncertainty_inputs.csv",
+      "source": "outputs/ATE_submission_package/data_code/复现资料/experimental_uncertainty_inputs.csv",
+      "source_sha256": "6b3b62a8da1564a47cefa6a0380a2c1c2b672463453f75e65255ea91bca441ae",
+      "repository_sha256": "6b3b62a8da1564a47cefa6a0380a2c1c2b672463453f75e65255ea91bca441ae",
+      "adapted": false
+    },
+    {
+      "file": "data/measured_flow_sensitivity.csv",
+      "source": "outputs/ATE_submission_package/data_code/复现资料/measured_flow_sensitivity.csv",
+      "source_sha256": "59572e09638d6af3dfffeab18c6f90eecf8b913f6568029dea3ad6f7480bb784",
+      "repository_sha256": "59572e09638d6af3dfffeab18c6f90eecf8b913f6568029dea3ad6f7480bb784",
+      "adapted": false
+    },
+    {
+      "file": "analysis/reproduce_correlations.py",
+      "source": "outputs/ATE_submission_package/data_code/代码/reproduce_correlations.py",
+      "source_sha256": "dc686b9b0239a252fdfc759edf9f031371730b4ed349f534cbbaf592b21204d4",
+      "repository_sha256": "a6ff389b4b0893e141a67dbcaf3e5078ec7b37c0a2b48725b6a51139f6a5732b",
+      "adapted": true
+    },
+    {
+      "file": "analysis/reproduce_uncertainty.py",
+      "source": "outputs/ATE_submission_package/data_code/代码/reproduce_uncertainty.py",
+      "source_sha256": "78bcdaad49a0238c6be14e23a37e1237741d9c5b982982e12e33f5f003aad615",
+      "repository_sha256": "440c471ada04be3d71867b65095a41aad3c52380a6e7603906114b8eaf7b58a6",
+      "adapted": true
+    },
+    {
+      "file": "analysis/recalculate_metrics.py",
+      "source": "outputs/ATE_submission_package/data_code/代码/recalculate_metrics.py",
+      "source_sha256": "c00c0382bc62f239dfcbb392c1f18be21f1bfa12e2ab0bcea01f9864929ebadd",
+      "repository_sha256": "0ec005457f850f25a5926816639e03eb799e73e6aae38f3e8adf1eaa8e66ef68",
+      "adapted": true
+    },
+    {
+      "file": "analysis/draw_figures.py",
+      "source": "outputs/ATE_submission_package/data_code/代码/draw_figures.py",
+      "source_sha256": "8c732e62986258b70f0761f0797cd1f8f46b18d07ee6b1f710d8a7fa93d20208",
+      "repository_sha256": "6e2256ecb10a8a935d9ca1e25f1cf4b24a09d8c85bd247c90a2b6e76d746267b",
+      "adapted": true
+    },
+    {
+      "file": "requirements.txt",
+      "source": "outputs/ATE_submission_package/data_code/代码/requirements.txt",
+      "source_sha256": "0f0e3e61ccc733c9ab5c84f015527759839675d3badea266fd07933f2923dd74",
+      "repository_sha256": "0f0e3e61ccc733c9ab5c84f015527759839675d3badea266fd07933f2923dd74",
+      "adapted": false
+    },
+    {
+      "file": "data/Data_processing_record.md",
+      "source": "outputs/ATE_submission_package/data_code/复现资料/Data_processing_record.md",
+      "source_sha256": "1c074520eb369ca7cf672e58bc6df7047ca04de8434d6c05a4413679d71277bf",
+      "repository_sha256": "824fd1a8d78ded7baa95e5f40e692752d28789ddcfe87d2f9cbdf37a7a5fe185",
+      "adapted": true
+    },
+    {
+      "file": "cfd/build_protruded_passage.py",
+      "source": "outputs/01a0f609-ab09-74f1-947e-910d66514fc4/特征点重跑/当前结果核查/evidence/current_DP534_bound_script.py",
+      "source_sha256": "0edc6bd7e0012da5894c0393a2cd86b1c44ded8c4ccfa65d4a1bd952c489e2dc",
+      "repository_sha256": "0edc6bd7e0012da5894c0393a2cd86b1c44ded8c4ccfa65d4a1bd952c489e2dc",
+      "adapted": false
+    },
+    {
+      "file": "cfd/fluent_reference.set",
+      "source": "outputs/45unreverse实验对比/旧设计点对照/native_gate534/attempt01/dp534/FLTG/Fluent/FLTG.169.set",
+      "source_sha256": "20376b54c6bb00df309ba18344b080c07684ca0c9a901cabe941ca7d0fbcaa6e",
+      "repository_sha256": "424ad3f36341bcb17ca5ddcddd7f52169984dc3e112e1928959d4e83663becc8",
+      "adapted": true
+    },
+    {
+      "file": "cfd/export_saved_settings.wbjn",
+      "source": "outputs/45unreverse实验对比/旧设计点对照/comparison534_audit.wbjn",
+      "source_sha256": "c9f30534d2411a43b3e6622050f8158cc3b08afc881dfbe0ce9ad938a64991ca",
+      "repository_sha256": "c9f30534d2411a43b3e6622050f8158cc3b08afc881dfbe0ce9ad938a64991ca",
+      "adapted": false
+    },
+    {
+      "file": "cfd/export_field_diagnostics.wbjn",
+      "source": "outputs/45unreverse实验对比/旧设计点对照/comparison12_aligned_audit.wbjn",
+      "source_sha256": "9ee9b59adafdaf83c63217c4f82a328d0f05facc95b2780fc64dedea873b7680",
+      "repository_sha256": "9ee9b59adafdaf83c63217c4f82a328d0f05facc95b2780fc64dedea873b7680",
+      "adapted": false
+    },
+    {
+      "file": "cfd/preflight_thermal_batch.wbjn",
+      "source": "新设计点拟合分析/DP480出口延长检查/BF_extended_preflight_singlecase.wbjn",
+      "source_sha256": "fd1d817abfe5a293f790d3352652cd28fee800648765cdd9e004004ee36e6689",
+      "repository_sha256": "c7ecbb1f506a205d9634303434f08935db41f45251c883431d07e0e3e3c0938a",
+      "adapted": true
+    },
+    {
+      "file": "cfd/run_thermal_batch54.wbjn",
+      "source": "新设计点拟合分析/DP480出口延长检查/BF_extended_run54.wbjn",
+      "source_sha256": "c7fa00fc174f806e558bf7eb84b8fbf4bb7d5a45a39690fde09b262eedd2a5b4",
+      "repository_sha256": "b23390c729f4ef6ea2afe1a84f31d7b0dd22556b85e6cd64da840e70fba1a45f",
+      "adapted": true
+    },
+    {
+      "file": "cfd/BF54_plan.json",
+      "source": "local_batch_archive/BF54_plan.json",
+      "source_sha256": "3d3b366a1b807438ffe35f9aab2dd12f0fc1b2d3d97ad696671a17e45a91563d",
+      "repository_sha256": "3d3b366a1b807438ffe35f9aab2dd12f0fc1b2d3d97ad696671a17e45a91563d",
+      "adapted": false
+    },
+    {
+      "file": "cfd/baseline216_field.tsv",
+      "source": "local_batch_archive/baseline216_field.tsv",
+      "source_sha256": "0512b7c774f04589c822162c8d9445ca57b19a62e90a3efd93c3fc9a4bb1a2b8",
+      "repository_sha256": "0512b7c774f04589c822162c8d9445ca57b19a62e90a3efd93c3fc9a4bb1a2b8",
+      "adapted": false
+    }
+  ]
+}

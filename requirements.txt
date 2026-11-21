@@ -1,0 +1,4 @@
+numpy
+pandas
+matplotlib
+CoolProp==8.0.0
