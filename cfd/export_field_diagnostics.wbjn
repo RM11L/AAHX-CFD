@@ -1,0 +1,143 @@
+# Read-only native audit: do not run while a Workbench update is active.
+# No update, initialization, new iterations, input edits, or source-file overwrite.
+import os, time, glob, json, gzip, re, shutil, traceback, zipfile
+project = GetProjectFile()
+assert os.path.basename(os.path.splitext(project)[0]).lower() == 'aahx-kt-check'
+work = os.path.splitext(project)[0] + '_files'
+root = os.path.join(os.path.dirname(project),'comparison12_aligned_audit')
+if not os.path.isdir(root): os.makedirs(root)
+i=1
+while os.path.exists(os.path.join(root,'attempt%02d'%i)): i+=1
+out=os.path.join(root,'attempt%02d'%i)
+os.makedirs(out)
+report={'project':project,'time':time.strftime('%Y-%m-%d %H:%M:%S'),
+        'scope':'read-only saved-file and field audit of existing twelve points',
+        'points':[],'errors':[],'no_new_solve':True}
+def save_report():
+    with open(os.path.join(out,'audit.json'),'w') as f: json.dump(report,f,indent=2)
+save_report()
+
+
+specs=[{'new_DP': 534, 'old_DP': 304, 'inputs_C_m_s_mm': [94.19, 7.17, 33.95, 0.51, 17.18, 43.71, 3.75, 36.59, 2.0], 'old_area_m2': 0.006698762}, {'new_DP': 535, 'old_DP': 398, 'inputs_C_m_s_mm': [24.98, 8.51, 33.95, 0.51, 108.22, 43.71, 3.75, 36.59, 2.0], 'old_area_m2': 0.006698762}, {'new_DP': 536, 'old_DP': 217, 'inputs_C_m_s_mm': [97.55, 6.8, 36.02, 3.2, 71.24, 52.6, 9.98, 56.74, 6.0], 'old_area_m2': 0.034438807}, {'new_DP': 537, 'old_DP': 315, 'inputs_C_m_s_mm': [38.02, 8.22, 36.02, 3.2, 115.68, 52.6, 9.98, 56.74, 6.0], 'old_area_m2': 0.034438807}, {'new_DP': 538, 'old_DP': 263, 'inputs_C_m_s_mm': [76.58, 8.82, 13.28, 2.56, 39.54, 81.94, 7.3, 39.74, 6.0], 'old_area_m2': 0.039361618}, {'new_DP': 539, 'old_DP': 389, 'inputs_C_m_s_mm': [41.38, 7.11, 13.28, 2.56, 91.8, 81.94, 7.3, 39.74, 6.0], 'old_area_m2': 0.039361618}, {'new_DP': 540, 'old_DP': 223, 'inputs_C_m_s_mm': [47.7, 6.24, 11.71, 1.96, 16.81, 24.27, 4.12, 22.46, 6.0], 'old_area_m2': 0.0075355351}, {'new_DP': 541, 'old_DP': 246, 'inputs_C_m_s_mm': [63.45, 9.46, 11.71, 1.96, 110.07, 24.27, 4.12, 22.46, 6.0], 'old_area_m2': 0.0075355351}, {'new_DP': 542, 'old_DP': 391, 'inputs_C_m_s_mm': [70.98, 10.13, 31.84, 1.45, 22.12, 46.02, 3.09, 58.77, 6.0], 'old_area_m2': 0.030805775}, {'new_DP': 543, 'old_DP': 248, 'inputs_C_m_s_mm': [67.45, 8.41, 31.84, 1.45, 108.39, 46.02, 3.09, 58.77, 6.0], 'old_area_m2': 0.030805775}, {'new_DP': 544, 'old_DP': 247, 'inputs_C_m_s_mm': [75.06, 10.43, 36.7, 3.9, 96.44, 89.56, 7.9, 49.34, 6.0], 'old_area_m2': 0.051926449}, {'new_DP': 545, 'old_DP': 226, 'inputs_C_m_s_mm': [39.68, 8.26, 36.7, 3.9, 147.6, 89.56, 7.9, 49.34, 6.0], 'old_area_m2': 0.051926447}]
+def bf_numeric(path):
+    with open(path) as f: lines=f.read().splitlines()
+    output=[]
+    for line in lines[1:]:
+        a=line.split('\t')
+        if len(a)<4: continue
+        assert a[2]!='UNDEFINED','Undefined readout: '+line
+        expr=re.sub(r'@CASE:.*?\.(outlet|inlet|bulge|plate)\b',r'@\1',a[1])
+        output.append((a[0],expr,float(a[2])))
+    cases={}
+    for c,e,v in output: cases.setdefault(c,{})[e]=v
+    assert len(cases)==1,'Expected exactly one loaded case; got '+str(list(cases.keys()))
+    return list(cases.values())[0]
+
+def bf_post(field,outpath,original_out):
+    expressions=['100 [K]','areaAve(X)@inlet','areaAve(X)@outlet','minVal(Velocity u)@outlet','maxVal(Velocity u)@outlet','minVal(Temperature)@outlet','maxVal(Temperature)@outlet','areaAve(Temperature)@outlet','massFlowAve(Temperature)@outlet','massFlow()@inlet','massFlow()@outlet','areaAve(Temperature)@inlet','areaAve(Velocity u)@inlet','areaAve(Temperature)@bulge','areaAve(Temperature)@plate','area()@bulge + area()@plate','areaAve(Pressure)@inlet - areaAve(Pressure)@outlet','areaAve(if(Velocity u < 0 [m s^-1],1,0))@outlet']
+    expressions += ['massFlowAveAbs(Pressure)@inlet - massFlowAveAbs(Pressure)@outlet', 'massFlowAve(Pressure)@inlet - massFlowAve(Pressure)@outlet', 'massFlowAveAbs(Temperature)@outlet', 'areaAve(X)@OriginalOutlet', 'area()@OriginalOutlet', 'areaAve(Temperature)@OriginalOutlet', 'massFlowAve(Temperature)@OriginalOutlet', 'minVal(Velocity u)@OriginalOutlet', 'massFlow()@OriginalOutlet', 'areaAve(if(Velocity u < 0 [m s^-1],1,0))@OriginalOutlet', 'areaAve(Pressure)@inlet - areaAve(Pressure)@OriginalOutlet', 'massFlowAve(Pressure)@inlet - massFlowAve(Pressure)@OriginalOutlet', 'massFlowAveAbs(Pressure)@inlet - massFlowAveAbs(Pressure)@OriginalOutlet']
+    ccl='DATA READER:\n  Clear All Objects = true\n  Append Results = false\n  Edit Case Names = false\n  Open to Compare = false\nEND\n>load filename='+field.replace('\\','/')+'\n'
+    ccl+='PLANE: OriginalOutlet\n Option = YZ Plane\n X = %.15g [m]\n Plane Type = Slice\n Plane Bound = None\n Visibility = Off\nEND\n'%original_out
+    ccl+='! open(BFOUT, ">%s") or die $!;\n' % outpath.replace('\\','/')
+    ccl+='! print BFOUT "Case\\tExpression\\tValue\\tUnits\\n";\n! @bf_ids=split(/,/,getChildren("DATA READER","CASE"));\n! die "Expected one case" unless scalar(@bf_ids)==1; foreach $bf_id (@bf_ids) { $bf_name=getObjectName($bf_id); $bf_name =~ s/^Case\\s+//;\n'
+    for expression in expressions:
+        ccl+='! $bf_expr=\'%s\'; ($bf_v,$bf_u)=evaluate($bf_expr); print BFOUT join("\\t",$bf_name,$bf_expr,defined($bf_v)?$bf_v:"UNDEFINED",defined($bf_u)?$bf_u:"UNDEFINED"),"\\n";\n' % expression
+    ccl+='! } close(BFOUT);\n'
+    with open(outpath+'.cse','w') as f: f.write(ccl)
+    GetSystem(Name='Post').GetContainer(ComponentName='Results').SendCommand(Command=ccl)
+    return bf_numeric(outpath)
+
+cutoff=time.mktime(time.strptime('2026-10-30 22:37:00','%Y-%m-%d %H:%M:%S'))
+csv=os.path.join(out,'native_12points.csv')
+Parameters.ExportAllDesignPointsData(FilePath=csv,DesignPoints=[Parameters.GetDesignPoint(Name=str(p['new_DP'])) for p in specs])
+with open(csv) as f: native=dict((int(s.split(',')[0].split()[1]),s.strip().split(',')) for s in f if s.startswith('DP '))
+assert len(native)==12
+for spec in specs:
+    dp=spec['new_DP']; vals=spec['inputs_C_m_s_mm']
+    item={'new_DP':dp,'old_DP':spec['old_DP'],'state':'pending','inputs_C_m_s_mm':vals}
+    report['points'].append(item)
+    try:
+        row=native[dp]
+        assert all(abs(float(a)-b)<1e-6 for a,b in zip(row[1:10],vals)), 'Native input mismatch'
+        item['native_export_row']=row
+        dpdir=os.path.join(work,'dp'+str(dp),'FLTG','Fluent')
+        candidates=[p for p in glob.glob(os.path.join(dpdir,'*.dat.gz')) if os.path.getmtime(p)>=cutoff]
+        if not candidates:
+            item['state']='no fresh saved data; do not rerun automatically'
+            save_report(); continue
+        dat=max(candidates,key=os.path.getmtime)
+        cas=re.sub(r'-[0-9]{5}\.dat\.gz$','.cas.gz',dat)
+        assert cas!=dat and os.path.isfile(cas), 'Matching case missing'
+        assert os.path.getmtime(cas)>=cutoff, 'Historical case'
+        item['case_file']=cas; item['data_file']=dat
+        item['file_metadata']=[{'path':p,'bytes':os.path.getsize(p),'mtime':os.path.getmtime(p)} for p in (cas,dat)]
+        with gzip.open(cas,'rb') as f: case_text=f.read(8*1024*1024)
+        item['Prandtl']={}
+        for key in ('keprt','wallprt'):
+            match=re.search(r'\('+key+r'\s+([-+0-9.eE]+)\)',case_text)
+            assert match, 'No saved Prandtl'
+            item['Prandtl'][key]=float(match.group(1))
+            assert abs(float(match.group(1))-.65)<1e-8, 'Prandtl mismatch'
+        item['conductivity_snippets']=[]
+        for match in re.finditer(r'thermal-conductivity',case_text):
+            item['conductivity_snippets'].append(case_text[max(0,match.start()-80):match.end()+2600].decode('latin-1'))
+            if len(item['conductivity_snippets'])>=2: break
+        rungroup=os.path.join(out,'dp'+str(dp))
+        os.makedirs(rungroup)
+        for base in (os.path.join(work,'progress_files','dp'+str(dp),'FLTG','Fluent'),dpdir):
+            if not os.path.isdir(base): continue
+            for name in os.listdir(base):
+                path=os.path.join(base,name)
+                if name.lower().endswith(('.trn','monitor.gz','rfile.out','.set')) and os.path.getsize(path)<16*1024*1024:
+                    dest=os.path.join(rungroup,('progress_' if 'progress_files' in path else 'retained_')+name)
+                    shutil.copy2(path,dest)
+        geom=os.path.join(work,'dp'+str(dp),'Geom','DM','Geom.scdoc')
+        if os.path.isfile(geom):
+            shutil.copy2(geom,os.path.join(rungroup,'geometry.scdoc'))
+        item['state']='saved-file identity checked; field readout starting'
+        save_report()
+        tw,v,d,e,tin,w,h,p,n=vals
+        original_out=((n-1)*p/2.+62.5)/1000.
+        metrics=bf_post(dat,os.path.join(rungroup,'field_readout.tsv'),original_out)
+        item['metrics']=metrics
+        tw,v,d,e,tin,w,h,p,n=vals
+        original_out=((n-1)*p/2.+62.5)/1000.
+        item['optional_loaded_metrics']=dict((key,metrics[key]) for key in ['massFlowAveAbs(Pressure)@inlet - massFlowAveAbs(Pressure)@outlet', 'massFlowAve(Pressure)@inlet - massFlowAve(Pressure)@outlet', 'massFlowAveAbs(Temperature)@outlet', 'areaAve(X)@OriginalOutlet', 'area()@OriginalOutlet', 'areaAve(Temperature)@OriginalOutlet', 'massFlowAve(Temperature)@OriginalOutlet', 'minVal(Velocity u)@OriginalOutlet', 'massFlow()@OriginalOutlet', 'areaAve(if(Velocity u < 0 [m s^-1],1,0))@OriginalOutlet', 'areaAve(Pressure)@inlet - areaAve(Pressure)@OriginalOutlet', 'massFlowAve(Pressure)@inlet - massFlowAve(Pressure)@OriginalOutlet', 'massFlowAveAbs(Pressure)@inlet - massFlowAveAbs(Pressure)@OriginalOutlet'])
+        abs_dp=metrics['massFlowAveAbs(Pressure)@inlet - massFlowAveAbs(Pressure)@outlet']
+        if row[11].strip():
+            item['native_P6_vs_CFDPost_abs_weighted_difference_pct']=100*(abs_dp/float(row[11])-1)
+        item['native_pressure_definition']='inlet minus outlet static pressure; absolute-mass-flux weighted'
+        item['energy_balance_status']='pending native total-energy flux report; inherited DO radiation must be included'
+        tw,v,d,e,tin,w,h,p,n=vals
+        original_out=((n-1)*p/2.+62.5)/1000.
+        check={}
+        for expression,target,tol in [
+            ('100 [K]',100.,1e-8),('areaAve(X)@inlet',-original_out,1e-6),
+            ('areaAve(X)@outlet',original_out+.06,1e-6),
+            ('areaAve(Temperature)@inlet',tin+273.15,.02),
+            ('areaAve(Velocity u)@inlet',v,.005),
+            ('areaAve(Temperature)@bulge',tw+273.15,.02),
+            ('areaAve(Temperature)@plate',tw+273.15,.02),
+            ('area()@bulge + area()@plate',spec['old_area_m2'],1e-6)]:
+            check[expression]=abs(metrics[expression]-target)<=tol
+        check['original_plane_x']=abs(metrics['areaAve(X)@OriginalOutlet']-original_out)<1e-6
+        check['original_plane_area']=abs(metrics['area()@OriginalOutlet']-w*h*1e-6)<max(1e-9,w*h*1e-6*0.001)
+        check['no_outlet_reverse_velocity']=metrics['minVal(Velocity u)@outlet']>=0
+        check['zero_reverse_area']=metrics['areaAve(if(Velocity u < 0 [m s^-1],1,0))@outlet']<=1e-9
+        check['lower_temperature_bound']=metrics['minVal(Temperature)@outlet']>=min(tw,tin)+273.05
+        check['upper_temperature_bound']=metrics['maxVal(Temperature)@outlet']<=max(tw,tin)+273.25
+        mi,mo=metrics['massFlow()@inlet'],metrics['massFlow()@outlet']
+        item['mass_imbalance_percent']=100*abs(mi+mo)/max(abs(mi),abs(mo))
+        check['mass_balance_below_1percent']=item['mass_imbalance_percent']<1
+        item['checks']=check
+        item['all_core_field_checks_pass']=all(check.values())
+        item['original_outlet_plane_x_m']=original_out
+        item['state']='combined core and original-plane readout complete; native energy flux pending'
+    except:
+        item['state']='audit error; no automatic solve or retry'
+        item['error']=traceback.format_exc()
+        report['errors'].append({'new_DP':dp,'error':item['error']})
+    save_report()
+report['state']='combined read-only audit returned; inspect point-level errors/checks'
+save_report()
+print('COMPARISON12_ALIGNED_AUDIT_RETURNED: '+out)

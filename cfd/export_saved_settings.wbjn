@@ -1,0 +1,92 @@
+# Native Workbench audit only: no parameter edit, update, initialization or solve.
+import os, time, json, gzip, re, traceback
+ca_project = GetProjectFile()
+ca_stem = os.path.splitext(ca_project)[0]
+assert os.path.basename(ca_stem).lower().replace('_','-') == 'aahx-kt-check', 'Unexpected project'
+ca_work = ca_stem + '_files'
+assert os.path.isdir(ca_work), 'Missing project files'
+ca_root = os.path.join(os.path.dirname(ca_project), 'comparison_gate534')
+if not os.path.isdir(ca_root): os.makedirs(ca_root)
+ca_i=1
+while os.path.exists(os.path.join(ca_root,'attempt%02d'%ca_i)): ca_i+=1
+ca_out=os.path.join(ca_root,'attempt%02d'%ca_i)
+os.makedirs(ca_out)
+ca_report={'project':ca_project,'project_directory':ca_work,'time':time.strftime('%Y-%m-%d %H:%M:%S'),
+           'scope':'Read-only native parameter export and saved-file metadata/settings snippets. No update or solve.',
+           'parameters_csv':os.path.join(ca_out,'native_parameters.csv'),'errors':[], 'files':[], 'settings':[]}
+def ca_write():
+    with open(os.path.join(ca_out,'audit.json'),'w') as ca_f: json.dump(ca_report,ca_f,indent=2)
+def ca_meta(p):
+    return {'path':p,'bytes':os.path.getsize(p),'mtime':os.path.getmtime(p),
+            'time_local':time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(os.path.getmtime(p)))}
+ca_write()
+try:
+    ca_dps=[Parameters.GetDesignPoint(Name=str(i)) for i in range(480,546)]
+    Parameters.ExportAllDesignPointsData(FilePath=ca_report['parameters_csv'],DesignPoints=ca_dps)
+    with open(ca_report['parameters_csv']) as ca_f:
+        ca_lines=ca_f.read().splitlines()
+    ca_report['native_headers']=[l for l in ca_lines if not l.startswith('DP ')][:8]
+    ca_report['exported_count']=sum(l.startswith('DP ') for l in ca_lines)
+    assert ca_report['exported_count']==66, 'Native export count mismatch'
+    ca_report['new_rows']=[l for l in ca_lines if l.startswith('DP ') and int(l.split(',')[0].split()[1])>=534]
+    assert len(ca_report['new_rows'])==12
+except:
+    ca_report['errors'].append(traceback.format_exc())
+ca_write()
+ca_candidates=[]
+for ca_dir in (os.path.join(ca_work,'dp534'),os.path.join(ca_work,'progress_files','dp534')):
+    if not os.path.isdir(ca_dir): continue
+    for ca_folder,ca_dirs,ca_names in os.walk(ca_dir):
+        for ca_name in ca_names:
+            ca_path=os.path.join(ca_folder,ca_name)
+            if ca_name.lower().endswith(('.scdoc','.agdb','.py','.scscript','.set','.set.gz','.cas','.cas.gz','.cas.h5','.dat','.dat.gz','.dat.h5','.msh','.msh.gz','.msh.h5','.trn')):
+                ca_candidates.append(ca_path)
+ca_candidates=sorted(set(ca_candidates),key=os.path.getmtime,reverse=True)
+ca_report['files']=[ca_meta(p) for p in ca_candidates]
+for ca_kind in ('set','case'):
+    ca_matches=[p for p in ca_candidates if ('.set' in os.path.basename(p).lower() if ca_kind=='set' else '.cas' in os.path.basename(p).lower() and not p.lower().endswith('.h5'))]
+    for ca_path in ca_matches[:2]:
+        try:
+            ca_f=gzip.open(ca_path,'rb') if ca_path.lower().endswith('.gz') else open(ca_path,'rb')
+            try: ca_text=ca_f.read(8*1024*1024)
+            finally: ca_f.close()
+            ca_evidence=ca_meta(ca_path)
+            ca_evidence['Prandtl']={}
+            for ca_key in ('keprt','wallprt'):
+                ca_match=re.search(r'\('+ca_key+r'\s+([-+0-9.eE]+)\)',ca_text)
+                ca_evidence['Prandtl'][ca_key]=float(ca_match.group(1)) if ca_match else None
+            ca_evidence['conductivity_snippets']=[]
+            for ca_match in re.finditer(r'thermal-conductivity',ca_text):
+                ca_evidence['conductivity_snippets'].append(ca_text[max(0,ca_match.start()-100):ca_match.end()+2600].decode('latin-1'))
+                if len(ca_evidence['conductivity_snippets'])>=2: break
+            ca_evidence['model_snippets']=[]
+            for ca_token in ('kw-sst','kw-standard','ke-2eqn','rp-unsteady','turbulence-intensity','backflow-total-temperature'):
+                ca_match=re.search(re.escape(ca_token),ca_text)
+                if ca_match: ca_evidence['model_snippets'].append(ca_text[max(0,ca_match.start()-80):ca_match.end()+180].decode('latin-1'))
+            ca_report['settings'].append(ca_evidence)
+        except:
+            ca_report['errors'].append(traceback.format_exc())
+ca_write()
+
+# Preserve the actual saved geometry and textual workflow/log evidence.
+import shutil
+ca_report['copied_evidence']=[]
+ca_geom=os.path.join(ca_work,'dp534','Geom','DM','Geom.scdoc')
+if os.path.isfile(ca_geom):
+    ca_dest=os.path.join(ca_out,'dp534_geometry.scdoc')
+    shutil.copy2(ca_geom,ca_dest)
+    ca_report['copied_evidence'].append(ca_meta(ca_dest))
+for ca_base in (os.path.join(ca_work,'dp534'),os.path.join(ca_work,'progress_files','dp534')):
+    if not os.path.isdir(ca_base): continue
+    for ca_folder,ca_dirs,ca_names in os.walk(ca_base):
+        for ca_name in ca_names:
+            ca_path=os.path.join(ca_folder,ca_name)
+            if ca_name.lower().endswith(('.wft','.wf','.wft.gz','.trn','.jou','.xml','.set')) and os.path.getsize(ca_path)<16*1024*1024:
+                ca_rel=os.path.relpath(ca_path,ca_work)
+                ca_dest=os.path.join(ca_out,ca_rel)
+                if not os.path.isdir(os.path.dirname(ca_dest)): os.makedirs(os.path.dirname(ca_dest))
+                shutil.copy2(ca_path,ca_dest)
+                ca_report['copied_evidence'].append(ca_meta(ca_dest))
+ca_write()
+print('COMPARISON_GATE534_AUDIT_COMPLETE: '+ca_out)
+

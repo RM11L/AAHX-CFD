@@ -1,0 +1,991 @@
+{
+  "status": "PREPARED ONLY; 54 records to run under a verified backflow-free setting",
+  "column_order": [
+    "P3_T_heatsource_C",
+    "P4_v_inlet_m_s",
+    "P7_Bulge_Diameter_mm",
+    "P8_Bulge_Depth_mm",
+    "P9_T_inlet_C",
+    "P10_W_mm",
+    "P11_H_mm",
+    "P13_Feature_Pitch_mm",
+    "P14_Feature_Count"
+  ],
+  "record_count": 54,
+  "unique_input_count": 51,
+  "run_all_54_records": true,
+  "points": [
+    {
+      "source_DP": 213,
+      "inputs_C_m_s_mm": [
+        30.0,
+        5.2,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 293.83327,
+      "baseline_dp_Pa": 70.454977,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 214,
+      "inputs_C_m_s_mm": [
+        30.0,
+        5.2,
+        25.0,
+        3.6,
+        50.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 311.16282,
+      "baseline_dp_Pa": 58.879457,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 215,
+      "inputs_C_m_s_mm": [
+        30.0,
+        7.8,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 293.30659,
+      "baseline_dp_Pa": 148.44736,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 216,
+      "inputs_C_m_s_mm": [
+        30.0,
+        7.8,
+        25.0,
+        3.6,
+        50.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 311.84672,
+      "baseline_dp_Pa": 124.37747,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "200-step field saved; backflow not yet verified"
+    },
+    {
+      "source_DP": 217,
+      "inputs_C_m_s_mm": [
+        30.0,
+        10.4,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 292.92904,
+      "baseline_dp_Pa": 252.53986,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 218,
+      "inputs_C_m_s_mm": [
+        30.0,
+        10.4,
+        25.0,
+        3.6,
+        50.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 312.4704,
+      "baseline_dp_Pa": 212.85255,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 219,
+      "inputs_C_m_s_mm": [
+        53.0,
+        5.2,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 303.16812,
+      "baseline_dp_Pa": 73.927229,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 220,
+      "inputs_C_m_s_mm": [
+        53.0,
+        5.2,
+        25.0,
+        3.6,
+        100.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 340.24732,
+      "baseline_dp_Pa": 50.932496,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 221,
+      "inputs_C_m_s_mm": [
+        53.0,
+        7.8,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 302.47038,
+      "baseline_dp_Pa": 154.48122,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 222,
+      "inputs_C_m_s_mm": [
+        53.0,
+        7.8,
+        25.0,
+        3.6,
+        100.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 342.94003,
+      "baseline_dp_Pa": 106.32749,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 223,
+      "inputs_C_m_s_mm": [
+        55.0,
+        10.4,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 303.35152,
+      "baseline_dp_Pa": 266.50001,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 224,
+      "inputs_C_m_s_mm": [
+        55.0,
+        10.4,
+        25.0,
+        3.6,
+        100.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 345.36495,
+      "baseline_dp_Pa": 183.37636,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 225,
+      "inputs_C_m_s_mm": [
+        77.0,
+        5.2,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 312.65663,
+      "baseline_dp_Pa": 77.626794,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 226,
+      "inputs_C_m_s_mm": [
+        77.0,
+        5.2,
+        25.0,
+        3.6,
+        150.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 368.90941,
+      "baseline_dp_Pa": 45.551699,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 227,
+      "inputs_C_m_s_mm": [
+        76.0,
+        7.8,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 311.34652,
+      "baseline_dp_Pa": 161.13741,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 228,
+      "inputs_C_m_s_mm": [
+        76.0,
+        7.8,
+        25.0,
+        3.6,
+        150.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 373.16848,
+      "baseline_dp_Pa": 94.18538,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 229,
+      "inputs_C_m_s_mm": [
+        77.0,
+        10.4,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 312.08706,
+      "baseline_dp_Pa": 276.47418,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 230,
+      "inputs_C_m_s_mm": [
+        77.0,
+        10.4,
+        25.0,
+        3.6,
+        150.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 375.77204,
+      "baseline_dp_Pa": 160.80466,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 231,
+      "inputs_C_m_s_mm": [
+        28.75,
+        7.8,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 292.8135,
+      "baseline_dp_Pa": 148.48214,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 232,
+      "inputs_C_m_s_mm": [
+        28.75,
+        5.2,
+        25.0,
+        3.6,
+        50.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 310.63377,
+      "baseline_dp_Pa": 58.320387,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 233,
+      "inputs_C_m_s_mm": [
+        28.0,
+        10.4,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 292.07791,
+      "baseline_dp_Pa": 251.52806,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 234,
+      "inputs_C_m_s_mm": [
+        28.0,
+        5.2,
+        25.0,
+        3.6,
+        50.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 310.31029,
+      "baseline_dp_Pa": 58.218178,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 235,
+      "inputs_C_m_s_mm": [
+        30.0,
+        5.2,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 293.826,
+      "baseline_dp_Pa": 70.387449,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 236,
+      "inputs_C_m_s_mm": [
+        30.0,
+        7.8,
+        25.0,
+        3.6,
+        50.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 311.84672,
+      "baseline_dp_Pa": 124.37747,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 237,
+      "inputs_C_m_s_mm": [
+        29.0,
+        10.4,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 292.51041,
+      "baseline_dp_Pa": 252.13055,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 238,
+      "inputs_C_m_s_mm": [
+        29.0,
+        7.8,
+        25.0,
+        3.6,
+        50.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 311.40824,
+      "baseline_dp_Pa": 124.08867,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 239,
+      "inputs_C_m_s_mm": [
+        31.5,
+        5.2,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 294.4434,
+      "baseline_dp_Pa": 70.614095,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 240,
+      "inputs_C_m_s_mm": [
+        31.5,
+        10.4,
+        25.0,
+        3.6,
+        50.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 313.15092,
+      "baseline_dp_Pa": 213.38642,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 241,
+      "inputs_C_m_s_mm": [
+        30.5,
+        7.8,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 293.54034,
+      "baseline_dp_Pa": 149.37378,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 242,
+      "inputs_C_m_s_mm": [
+        30.5,
+        10.4,
+        25.0,
+        3.6,
+        50.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 312.69489,
+      "baseline_dp_Pa": 212.74202,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 243,
+      "inputs_C_m_s_mm": [
+        51.0,
+        7.8,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 301.6917,
+      "baseline_dp_Pa": 153.96008,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 244,
+      "inputs_C_m_s_mm": [
+        51.0,
+        5.2,
+        25.0,
+        3.6,
+        100.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 339.378,
+      "baseline_dp_Pa": 50.714942,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 245,
+      "inputs_C_m_s_mm": [
+        49.5,
+        10.4,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 301.11173,
+      "baseline_dp_Pa": 263.80294,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 246,
+      "inputs_C_m_s_mm": [
+        49.5,
+        5.2,
+        25.0,
+        3.6,
+        100.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 338.71487,
+      "baseline_dp_Pa": 50.573182,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 247,
+      "inputs_C_m_s_mm": [
+        56.0,
+        5.2,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 304.3676,
+      "baseline_dp_Pa": 74.379227,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 248,
+      "inputs_C_m_s_mm": [
+        56.0,
+        7.8,
+        25.0,
+        3.6,
+        100.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 344.18961,
+      "baseline_dp_Pa": 107.43885,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 249,
+      "inputs_C_m_s_mm": [
+        52.0,
+        10.4,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 302.06761,
+      "baseline_dp_Pa": 266.61568,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 250,
+      "inputs_C_m_s_mm": [
+        52.0,
+        7.8,
+        25.0,
+        3.6,
+        100.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 342.4622,
+      "baseline_dp_Pa": 106.56388,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 251,
+      "inputs_C_m_s_mm": [
+        57.5,
+        5.2,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 304.96661,
+      "baseline_dp_Pa": 74.620468,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 252,
+      "inputs_C_m_s_mm": [
+        57.5,
+        10.4,
+        25.0,
+        3.6,
+        100.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 346.46655,
+      "baseline_dp_Pa": 184.30184,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 253,
+      "inputs_C_m_s_mm": [
+        55.0,
+        7.8,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 303.25884,
+      "baseline_dp_Pa": 155.01525,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 254,
+      "inputs_C_m_s_mm": [
+        55.0,
+        10.4,
+        25.0,
+        3.6,
+        100.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 345.36495,
+      "baseline_dp_Pa": 183.37636,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 255,
+      "inputs_C_m_s_mm": [
+        72.5,
+        7.8,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 310.00354,
+      "baseline_dp_Pa": 159.99745,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 256,
+      "inputs_C_m_s_mm": [
+        72.5,
+        5.2,
+        25.0,
+        3.6,
+        150.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 366.87877,
+      "baseline_dp_Pa": 45.135447,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 257,
+      "inputs_C_m_s_mm": [
+        70.5,
+        10.4,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 309.53794,
+      "baseline_dp_Pa": 273.54837,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 258,
+      "inputs_C_m_s_mm": [
+        70.5,
+        5.2,
+        25.0,
+        3.6,
+        150.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 365.98371,
+      "baseline_dp_Pa": 44.947013,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 259,
+      "inputs_C_m_s_mm": [
+        80.0,
+        5.2,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 313.82489,
+      "baseline_dp_Pa": 78.082918,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 260,
+      "inputs_C_m_s_mm": [
+        80.0,
+        7.8,
+        25.0,
+        3.6,
+        150.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 374.94325,
+      "baseline_dp_Pa": 94.885179,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 261,
+      "inputs_C_m_s_mm": [
+        74.0,
+        10.4,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 311.14751,
+      "baseline_dp_Pa": 278.8965,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 262,
+      "inputs_C_m_s_mm": [
+        74.0,
+        7.8,
+        25.0,
+        3.6,
+        150.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 372.27616,
+      "baseline_dp_Pa": 93.837445,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 263,
+      "inputs_C_m_s_mm": [
+        82.5,
+        5.2,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 314.45068,
+      "baseline_dp_Pa": 78.504578,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 264,
+      "inputs_C_m_s_mm": [
+        82.5,
+        10.4,
+        25.0,
+        3.6,
+        150.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 378.21933,
+      "baseline_dp_Pa": 162.47702,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 265,
+      "inputs_C_m_s_mm": [
+        79.0,
+        7.8,
+        25.0,
+        3.6,
+        10.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 312.48786,
+      "baseline_dp_Pa": 162.04462,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    },
+    {
+      "source_DP": 266,
+      "inputs_C_m_s_mm": [
+        79.0,
+        10.4,
+        25.0,
+        3.6,
+        150.0,
+        45.0,
+        7.0,
+        45.0,
+        6.0
+      ],
+      "baseline_Tout_K": 376.6584,
+      "baseline_dp_Pa": 161.40769,
+      "baseline_Aht_m2": 0.024248869,
+      "extension_status": "not run"
+    }
+  ]
+}

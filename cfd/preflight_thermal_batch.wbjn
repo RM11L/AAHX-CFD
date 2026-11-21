@@ -1,0 +1,66 @@
+# Native Workbench 2023 R1 script: archive and read the completed extension only.
+# Does not change inputs, initialize Fluent, or run iterations.
+import os, glob, json, time, shutil, re
+from System.IO import DriveInfo
+bf_base = os.path.dirname(GetProjectFile())
+bf_project = os.path.join(bf_base, 'AAHX_54_W45_P45_dp480.wbpj')
+assert os.path.normcase(GetProjectFile()) == os.path.normcase(bf_project), 'Wrong project'
+bf_work = os.path.join(bf_base, 'AAHX_54_W45_P45_dp480_files')
+bf_root = os.path.join(bf_base, 'BF54_extended')
+if not os.path.isdir(bf_root): os.makedirs(bf_root)
+bf_dp = Parameters.GetDesignPoint(Name='480')
+bf_csv = os.path.join(bf_root, 'baseline216_outputs.csv')
+Parameters.ExportAllDesignPointsData(FilePath=bf_csv, DesignPoints=[bf_dp])
+with open(bf_csv) as bf_f: bf_rows = [r.strip().split(',') for r in bf_f if r.startswith('DP ')]
+assert len(bf_rows) == 1
+bf_expected = (30, 7.8, 25, 3.6, 50, 45, 7, 45, 6)
+assert all(abs(float(a)-b)<1e-6 for a,b in zip(bf_rows[0][1:10],bf_expected)), bf_rows
+bf_field = os.path.join(bf_work, 'dp480', 'FLTG', 'Fluent', 'FLTG.169-83-00200.dat.gz')
+bf_case = os.path.join(os.path.dirname(bf_field), 'FLTG.169-83.cas.gz')
+assert os.path.isfile(bf_field) and os.path.isfile(bf_case)
+bf_archive = os.path.join(bf_root, 'source216_baseline')
+if not os.path.isdir(bf_archive): os.makedirs(bf_archive)
+for bf_p in (bf_case,bf_field):
+    bf_q=os.path.join(bf_archive,os.path.basename(bf_p))
+    if not os.path.exists(bf_q): shutil.copy2(bf_p,bf_q)
+    assert os.path.getsize(bf_p)==os.path.getsize(bf_q)
+bf_readout=os.path.join(bf_root,'baseline216_field.tsv')
+bf_expressions = [
+ '100 [K]', 'areaAve(X)@inlet', 'areaAve(X)@outlet',
+ 'minVal(Velocity u)@outlet', 'maxVal(Velocity u)@outlet',
+ 'minVal(Temperature)@outlet', 'maxVal(Temperature)@outlet',
+ 'areaAve(Temperature)@outlet', 'massFlowAve(Temperature)@outlet',
+ 'massFlow()@inlet', 'massFlow()@outlet',
+ 'areaAve(Temperature)@inlet', 'areaAve(Velocity u)@inlet',
+ 'areaAve(Temperature)@bulge', 'areaAve(Temperature)@plate',
+ 'area()@bulge + area()@plate',
+ 'areaAve(Pressure)@inlet - areaAve(Pressure)@outlet',
+ 'areaAve(if(Velocity u < 0 [m s^-1],1,0))@outlet']
+bf_ccl = '''DATA READER:
+  Clear All Objects = true
+  Append Results = false
+  Edit Case Names = false
+  Open to Compare = false
+  Keep Camera Position = true
+END
+>load filename=%s
+''' % bf_field.replace('\\','/')
+bf_ccl += '! open(BFOUT, ">%s") or die $!;\n' % bf_readout.replace('\\','/')
+bf_ccl += '! print BFOUT "Case\\tExpression\\tValue\\tUnits\\n";\n'
+bf_ccl += '! @bf_ids=split(/,/,getChildren("DATA READER","CASE"));\n'
+bf_ccl += '! die "Expected one case" unless scalar(@bf_ids)==1; foreach $bf_id (@bf_ids) { $bf_name=getObjectName($bf_id); $bf_name =~ s/^Case\\s+//;\n'
+for bf_expression in bf_expressions:
+    bf_ccl += '! $bf_expr=\'%s\'; ($bf_v,$bf_u)=evaluate($bf_expr); print BFOUT join("\\t",$bf_name,$bf_expr,defined($bf_v)?$bf_v:"UNDEFINED",defined($bf_u)?$bf_u:"UNDEFINED"),"\\n";\n' % bf_expression
+bf_ccl += '! } close(BFOUT);\n'
+with open(os.path.join(bf_root,'baseline216_readout.cse'),'w') as bf_f: bf_f.write(bf_ccl)
+bf_meta={'project':bf_project,'field':bf_field,'field_mtime':time.ctime(os.path.getmtime(bf_field)),'free_GiB':float(DriveInfo('C').AvailableFreeSpace)/(1024**3),'source_DP':216,'inputs_export':bf_rows,'role':'READ_ONLY_PREFLIGHT; no new solve'}
+with open(os.path.join(bf_root,'preflight.json'),'w') as bf_f: json.dump(bf_meta,bf_f,indent=2)
+print('BASELINE ARCHIVED; POST READOUT STARTING',bf_meta)
+GetSystem(Name='Post').GetContainer(ComponentName='Results').SendCommand(Command=bf_ccl)
+with open(bf_readout) as bf_f: bf_text=bf_f.read()
+print(bf_text)
+with open(os.path.join(bf_root,'preflight_status.txt'),'w') as bf_f:
+    bf_f.write('READOUT_RETURNED '+time.strftime('%Y-%m-%d %H:%M:%S')+'\n')
+    bf_f.write('UNDEFINED PRESENT\n' if 'UNDEFINED' in bf_text else 'NUMERIC READOUT; inspect values before starting batch\n')
+print('PREFLIGHT FINISHED; NO NEW SOLVE WAS RUN')
+

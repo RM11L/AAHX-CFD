@@ -1,0 +1,19 @@
+Case	Expression	Value	Units
+FLTG.169 83 00200	100 [K]	100	K
+FLTG.169 83 00200	areaAve(X)@inlet	-0.174999997019768	m
+FLTG.169 83 00200	areaAve(X)@outlet	0.234999999403954	m
+FLTG.169 83 00200	minVal(Velocity u)@outlet	3.36302304267883	m s^-1
+FLTG.169 83 00200	maxVal(Velocity u)@outlet	12.641529083252	m s^-1
+FLTG.169 83 00200	minVal(Temperature)@outlet	312.999389648438	K
+FLTG.169 83 00200	maxVal(Temperature)@outlet	316.674133300781	K
+FLTG.169 83 00200	areaAve(Temperature)@outlet	314.331512451172	K
+FLTG.169 83 00200	massFlowAve(Temperature)@outlet	314.825347900391	K
+FLTG.169 83 00200	massFlow()@inlet	0.00268671428784728	kg s^-1
+FLTG.169 83 00200	massFlow()@outlet	-0.00268678297288716	kg s^-1
+FLTG.169 83 00200	areaAve(Temperature)@inlet	323.149993896484	K
+FLTG.169 83 00200	areaAve(Velocity u)@inlet	7.80000019073486	m s^-1
+FLTG.169 83 00200	areaAve(Temperature)@bulge	303.149993896484	K
+FLTG.169 83 00200	areaAve(Temperature)@plate	303.149993896484	K
+FLTG.169 83 00200	area()@bulge + area()@plate	0.0242489241063595	m^2
+FLTG.169 83 00200	areaAve(Pressure)@inlet - areaAve(Pressure)@outlet	105.03490447998	kg m^-1 s^-2
+FLTG.169 83 00200	areaAve(if(Velocity u < 0 [m s^-1],1,0))@outlet	0	

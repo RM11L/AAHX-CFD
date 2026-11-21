@@ -1,0 +1,173 @@
+# Workbench native batch. Reuse the current extended mesh, changing thermal inputs only.
+# Requires successful read-only preflight. Keeps all 54 source records, including duplicates.
+import os, time, glob, json, shutil, hashlib, re, traceback
+from System.IO import DriveInfo, FileStream, FileMode, FileAccess, FileShare
+bf_base=os.path.dirname(GetProjectFile())
+bf_project=os.path.join(bf_base,'AAHX_54_W45_P45_dp480.wbpj')
+assert os.path.normcase(GetProjectFile())==os.path.normcase(bf_project),'Wrong project'
+bf_work=os.path.join(bf_base,'AAHX_54_W45_P45_dp480_files')
+bf_root=os.path.join(bf_base,'BF54_extended')
+assert os.path.isdir(bf_root),'Run the read-only preflight first'
+bf_planfile=os.path.join(bf_base,'BF54_plan.json')
+with open(bf_planfile) as bf_f: bf_plan=json.load(bf_f)
+assert len(bf_plan['points'])==54
+assert [p['source_DP'] for p in bf_plan['points']]==list(range(213,267))
+bf_lock=FileStream(os.path.join(bf_root,'batch_session.lock'),FileMode.OpenOrCreate,FileAccess.ReadWrite,getattr(FileShare,'None'))
+bf_statusfile=os.path.join(bf_root,'batch_status.json')
+bf_logfile=os.path.join(bf_root,'batch_log.txt')
+def bf_log(message):
+    with open(bf_logfile,'a') as f: f.write(time.strftime('%Y-%m-%d %H:%M:%S')+' '+message+'\n')
+    print(message)
+def bf_load_metrics(path):
+    with open(path) as f: lines=f.read().splitlines()
+    bycase={}
+    for line in lines[1:]:
+        a=line.split('\t')
+        if len(a)<4: continue
+        assert a[2]!='UNDEFINED','Undefined readout: '+line
+        bycase.setdefault(a[0],{})[re.sub(r'@CASE:[^.]+\.', '@', a[1])]=float(a[2])
+    return bycase
+def bf_numeric(path):
+    with open(path) as f: lines=f.read().splitlines()
+    output=[]
+    for line in lines[1:]:
+        a=line.split('\t')
+        if len(a)<4: continue
+        assert a[2]!='UNDEFINED','Undefined readout: '+line
+        expr=re.sub(r'@CASE:.*?\.(outlet|inlet|bulge|plate)\b',r'@\1',a[1])
+        output.append((a[0],expr,float(a[2])))
+    cases={}
+    for c,e,v in output: cases.setdefault(c,{})[e]=v
+    assert len(cases)==1,'Expected exactly one loaded case; got '+str(list(cases.keys()))
+    return list(cases.values())[0]
+def bf_validate(metrics,values):
+    tw,velocity,d,e,tin,w,h,p,n=values
+    for expr,expected,tol in [('100 [K]',100,1e-8),('areaAve(X)@inlet',-.175,1e-6),('areaAve(X)@outlet',.235,1e-6),('areaAve(Temperature)@inlet',tin+273.15,.02),('areaAve(Velocity u)@inlet',velocity,.005),('areaAve(Temperature)@bulge',tw+273.15,.02),('areaAve(Temperature)@plate',tw+273.15,.02)]:
+        assert abs(metrics[expr]-expected)<=tol,'Field identity mismatch: '+expr+' '+str(metrics[expr])
+    assert metrics['minVal(Velocity u)@outlet']>=0,'Outlet reversed flow persists'
+    assert metrics['areaAve(if(Velocity u < 0 [m s^-1],1,0))@outlet']<=1e-9,'Reverse-flow area detected'
+    assert min(tw,tin)+273.15-.1<=metrics['minVal(Temperature)@outlet']
+    assert metrics['maxVal(Temperature)@outlet']<=max(tw,tin)+273.15+.1
+    assert abs(metrics['area()@bulge + area()@plate']-.024248924)<1e-6,'Heated area changed'
+    mi,mo=metrics['massFlow()@inlet'],metrics['massFlow()@outlet']
+    imbalance=100*abs(mi+mo)/max(abs(mi),abs(mo))
+    assert imbalance<1,'Mass imbalance exceeds 1%: '+str(imbalance)
+    return imbalance
+bf_dp=Parameters.GetDesignPoint(Name='480')
+bf_names=('P3','P4','P7','P8','P9','P10','P11','P13','P14')
+bf_params=dict((n,Parameters.GetParameter(Name=n)) for n in bf_names)
+def bf_export(path,expected):
+    Parameters.ExportAllDesignPointsData(FilePath=path,DesignPoints=[bf_dp])
+    with open(path) as f: rows=[r.strip().split(',') for r in f if r.startswith('DP ')]
+    assert len(rows)==1
+    assert all(abs(float(a)-b)<1e-6 for a,b in zip(rows[0][1:10],expected)),rows
+    return rows[0]
+def bf_digest(path):
+    h=hashlib.sha256()
+    with open(path,'rb') as f:
+        while True:
+            b=f.read(4*1024*1024)
+            if not b: break
+            h.update(b)
+    return h.hexdigest()
+def bf_mesh_signature():
+    candidates=[]
+    for root,dirs,files in os.walk(os.path.join(bf_work,'dp480')):
+        for name in files:
+            if name.lower().endswith(('.scdoc','.msh','.msh.gz','.msh.h5')):
+                path=os.path.join(root,name)
+                candidates.append((os.path.relpath(path,bf_work),os.path.getsize(path),bf_digest(path)))
+    assert any('.scdoc' in x[0].lower() for x in candidates),'Missing retained geometry'
+    assert any('.msh' in x[0].lower() for x in candidates),'Missing retained mesh'
+    return sorted(candidates)
+def bf_post(field,outpath):
+    expressions=['100 [K]','areaAve(X)@inlet','areaAve(X)@outlet','minVal(Velocity u)@outlet','maxVal(Velocity u)@outlet','minVal(Temperature)@outlet','maxVal(Temperature)@outlet','areaAve(Temperature)@outlet','massFlowAve(Temperature)@outlet','massFlow()@inlet','massFlow()@outlet','areaAve(Temperature)@inlet','areaAve(Velocity u)@inlet','areaAve(Temperature)@bulge','areaAve(Temperature)@plate','area()@bulge + area()@plate','areaAve(Pressure)@inlet - areaAve(Pressure)@outlet','areaAve(if(Velocity u < 0 [m s^-1],1,0))@outlet']
+    ccl='DATA READER:\n  Clear All Objects = true\n  Append Results = false\n  Edit Case Names = false\n  Open to Compare = false\nEND\n>load filename='+field.replace('\\','/')+'\n'
+    ccl+='! open(BFOUT, ">%s") or die $!;\n' % outpath.replace('\\','/')
+    ccl+='! print BFOUT "Case\\tExpression\\tValue\\tUnits\\n";\n! @bf_ids=split(/,/,getChildren("DATA READER","CASE"));\n! die "Expected one case" unless scalar(@bf_ids)==1; foreach $bf_id (@bf_ids) { $bf_name=getObjectName($bf_id); $bf_name =~ s/^Case\\s+//;\n'
+    for expression in expressions:
+        ccl+='! $bf_expr=\'%s\'; ($bf_v,$bf_u)=evaluate($bf_expr); print BFOUT join("\\t",$bf_name,$bf_expr,defined($bf_v)?$bf_v:"UNDEFINED",defined($bf_u)?$bf_u:"UNDEFINED"),"\\n";\n' % expression
+    ccl+='! } close(BFOUT);\n'
+    with open(outpath+'.cse','w') as f: f.write(ccl)
+    GetSystem(Name='Post').GetContainer(ComponentName='Results').SendCommand(Command=ccl)
+    return bf_numeric(outpath)
+try:
+    basevalues=(30,7.8,25,3.6,50,45,7,45,6)
+    baseline_metrics=bf_numeric(os.path.join(bf_root,'baseline216_field.tsv'))
+    bf_validate(baseline_metrics,basevalues)
+    assert float(DriveInfo('C').AvailableFreeSpace)/(1024**3)>40,'Insufficient disk headroom'
+    if os.path.isfile(bf_statusfile):
+        with open(bf_statusfile) as f: bf_status=json.load(f)
+    else:
+        bf_status={'record_count':54,'reuse_current_DP':'480','extension_mm':60,'completed':{'216':{'status':'completed and field-verified','archive':'source216_baseline','metrics':baseline_metrics}},'state':'ready'}
+    original_mesh=bf_mesh_signature()
+    with open(os.path.join(bf_root,'geometry_mesh_signature.json'),'w') as f: json.dump(original_mesh,f,indent=2)
+    bf_order=[215,221,222,263,264]+[p['source_DP'] for p in bf_plan['points'] if p['source_DP'] not in (215,216,221,222,263,264)]
+    assert len(bf_order)==53 and len(set(bf_order))==53
+    bf_lookup=dict((p['source_DP'],p) for p in bf_plan['points'])
+    bf_log('START thermal-only batch; source216 already archived and verified; 53 remaining records')
+    for source in bf_order:
+        if str(source) in bf_status['completed']: continue
+        spec=bf_lookup[source]; values=spec['inputs_C_m_s_mm']
+        assert [values[i] for i in (2,3,5,6,7,8)]==[25,3.6,45,7,45,6]
+        rundir=os.path.join(bf_root,'source'+str(source))
+        if not os.path.isdir(rundir): os.makedirs(rundir)
+        assert not os.path.isfile(os.path.join(rundir,'field_manifest.json')),'Unreviewed previous result; inspect before resuming'
+        bf_status.update(state='setting thermal inputs',current_source_DP=source,current_inputs=values)
+        with open(bf_statusfile,'w') as f: json.dump(bf_status,f,indent=2)
+        for index in (0,1,4): bf_dp.SetParameterExpression(Parameter=bf_params[bf_names[index]],Expression=str(values[index]))
+        row=bf_export(os.path.join(rundir,'inputs_before.csv'),values)
+        Save(Overwrite=True)
+        start=time.time()
+        bf_log('UPDATE source'+str(source)+' original Tw/v/Tin '+str((values[0],values[1],values[4])))
+        bf_status['state']='solver running'
+        with open(bf_statusfile,'w') as f: json.dump(bf_status,f,indent=2)
+        UpdateAllDesignPoints(DesignPoints=[bf_dp])
+        Save(Overwrite=True)
+        row=bf_export(os.path.join(rundir,'outputs_after.csv'),values)
+        assert bf_mesh_signature()==original_mesh,'Geometry or mesh changed during thermal-only update; stopping'
+        dpdir=os.path.join(bf_work,'dp480','FLTG','Fluent')
+        dats=[p for p in glob.glob(os.path.join(dpdir,'*.dat*')) if os.path.getmtime(p)>=start-2]
+        assert dats,'No fresh saved field; stopping'
+        dat=max(dats,key=os.path.getmtime)
+        cases=[p for p in glob.glob(os.path.join(dpdir,'*.cas*')) if os.path.getmtime(p)>=start-2]
+        assert cases,'No fresh case saved; stopping'
+        cas=max(cases,key=os.path.getmtime)
+        archived=[]
+        for path in (cas,dat):
+            dest=os.path.join(rundir,os.path.basename(path))
+            assert not os.path.exists(dest),'Do not overwrite an archived result'
+            shutil.copy2(path,dest); assert os.path.getsize(path)==os.path.getsize(dest)
+            archived.append(dest)
+        logs=[]
+        for root,dirs,files in os.walk(bf_work):
+            if 'dp480' not in root.lower(): continue
+            for name in files:
+                if name.lower().endswith('.trn'):
+                    path=os.path.join(root,name)
+                    if os.path.getmtime(path)>=start-2:
+                        logdest=os.path.join(rundir,'log'+str(len(logs))+'_'+name)
+                        shutil.copy2(path,logdest); logs.append(logdest)
+        meta={'source_DP':source,'working_DP':'480','nine_inputs_C_m_s_mm':values,'input_output_csv_row':row,'started':time.ctime(start),'case':archived[0],'data':archived[1],'logs':logs,'solver_settings':'unchanged; original Workbench update; iteration completion alone is not a convergence declaration'}
+        with open(os.path.join(rundir,'field_manifest.json'),'w') as f: json.dump(meta,f,indent=2)
+        bf_status['state']='field verification'
+        with open(bf_statusfile,'w') as f: json.dump(bf_status,f,indent=2)
+        metrics=bf_post(archived[1],os.path.join(rundir,'field_readout.tsv'))
+        imbalance=bf_validate(metrics,values)
+        bf_status['completed'][str(source)]={'status':'solved and field-verified','archive':rundir,'metrics':metrics,'mass_imbalance_percent':imbalance,'outputs_csv_row':row}
+        bf_status['state']='verified'
+        with open(bf_statusfile,'w') as f: json.dump(bf_status,f,indent=2)
+        bf_log('VERIFIED source'+str(source)+'; umin='+str(metrics['minVal(Velocity u)@outlet'])+' m/s; mass imbalance='+str(imbalance)+' percent')
+    assert len(bf_status['completed'])==54
+    bf_status['state']='all 54 records solved and field-verified'
+    with open(bf_statusfile,'w') as f: json.dump(bf_status,f,indent=2)
+    bf_log('ALL 54 RECORDS COMPLETE; preserve original measurement-plane convention for pressure comparison')
+except:
+    bf_log('STOPPED: '+traceback.format_exc())
+    if 'bf_status' in globals():
+        bf_status['state']='stopped; inspect batch_log.txt before resuming'
+        with open(bf_statusfile,'w') as f: json.dump(bf_status,f,indent=2)
+    raise
+finally:
+    bf_lock.Close()
+
