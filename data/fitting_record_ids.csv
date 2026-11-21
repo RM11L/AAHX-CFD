@@ -1,0 +1,301 @@
+﻿record_id,table_S7_row,source_label,source_batch
+CFD0001,1,DP 480,latest
+CFD0002,2,DP 481,latest
+CFD0003,3,DP 482,latest
+CFD0004,4,DP 483,latest
+CFD0005,5,DP 484,latest
+CFD0006,6,DP 485,latest
+CFD0007,7,DP 486,latest
+CFD0008,8,DP 487,latest
+CFD0009,9,DP 488,latest
+CFD0010,10,DP 489,latest
+CFD0011,11,DP 490,latest
+CFD0012,12,DP 491,latest
+CFD0013,13,DP 492,latest
+CFD0014,14,DP 493,latest
+CFD0015,15,DP 494,latest
+CFD0016,16,DP 495,latest
+CFD0017,17,DP 496,latest
+CFD0018,18,DP 497,latest
+CFD0019,19,DP 498,latest
+CFD0020,20,DP 499,latest
+CFD0021,21,DP 500,latest
+CFD0022,22,DP 501,latest
+CFD0023,23,DP 502,latest
+CFD0024,24,DP 503,latest
+CFD0025,25,DP 504,latest
+CFD0026,26,DP 505,latest
+CFD0027,27,DP 506,latest
+CFD0028,28,DP 507,latest
+CFD0029,29,DP 508,latest
+CFD0030,30,DP 509,latest
+CFD0031,31,DP 510,latest
+CFD0032,32,DP 511,latest
+CFD0033,33,DP 512,latest
+CFD0034,34,DP 513,latest
+CFD0035,35,DP 514,latest
+CFD0036,36,DP 515,latest
+CFD0037,37,DP 517,latest
+CFD0038,38,DP 518,latest
+CFD0039,39,DP 519,latest
+CFD0040,40,DP 520,latest
+CFD0041,41,DP 521,latest
+CFD0042,42,DP 522,latest
+CFD0043,43,DP 523,latest
+CFD0044,44,DP 524,latest
+CFD0045,45,DP 525,latest
+CFD0046,46,DP 526,latest
+CFD0047,47,DP 527,latest
+CFD0048,48,DP 528,latest
+CFD0049,49,DP 529,latest
+CFD0050,50,DP 530,latest
+CFD0051,51,DP 531,latest
+CFD0052,52,DP 532,latest
+CFD0053,53,DP 533,latest
+CFD0054,54,DP 534,latest
+CFD0055,55,DP 535,latest
+CFD0056,56,DP 536,latest
+CFD0057,57,DP 539,latest
+CFD0058,58,DP 540,latest
+CFD0059,59,DP 541,latest
+CFD0060,60,DP 542,latest
+CFD0061,61,DP 543,latest
+CFD0062,62,DP 544,latest
+CFD0063,63,DP 545,latest
+CFD0064,64,DP 546,latest
+CFD0065,65,DP 547,latest
+CFD0066,66,DP 548,latest
+CFD0067,67,DP 549,latest
+CFD0068,68,DP 550,latest
+CFD0069,69,DP 551,latest
+CFD0070,70,DP 552,latest
+CFD0071,71,DP 553,latest
+CFD0072,72,DP 554,latest
+CFD0073,73,DP 555,latest
+CFD0074,74,DP 556,latest
+CFD0075,75,DP 557,latest
+CFD0076,76,DP 558,latest
+CFD0077,77,DP 559,latest
+CFD0078,78,DP 560,latest
+CFD0079,79,DP 563,latest
+CFD0080,80,DP 564,latest
+CFD0081,81,DP 565,latest
+CFD0082,82,DP 566,latest
+CFD0083,83,DP 567,latest
+CFD0084,84,DP 568,latest
+CFD0085,85,DP 569,latest
+CFD0086,86,DP 570,latest
+CFD0087,87,DP 571,latest
+CFD0088,88,DP 572,latest
+CFD0089,89,DP 573,latest
+CFD0090,90,DP 574,latest
+CFD0091,91,DP 575,latest
+CFD0092,92,DP 576,latest
+CFD0093,93,DP 577,latest
+CFD0094,94,DP 578,latest
+CFD0095,95,DP 579,latest
+CFD0096,96,DP 580,latest
+CFD0097,97,DP 581,latest
+CFD0098,98,DP 582,latest
+CFD0099,99,DP 583,latest
+CFD0100,100,DP 584,latest
+CFD0101,101,DP 585,latest
+CFD0102,102,DP 586,latest
+CFD0103,103,DP 587,latest
+CFD0104,104,DP 588,latest
+CFD0105,105,DP 589,latest
+CFD0106,106,DP 590,latest
+CFD0107,107,DP 592,latest
+CFD0108,108,DP 593,latest
+CFD0109,109,DP 594,latest
+CFD0110,110,DP 595,latest
+CFD0111,111,DP 596,latest
+CFD0112,112,DP 597,latest
+CFD0113,113,DP 598,latest
+CFD0114,114,DP 599,latest
+CFD0115,115,DP 600,latest
+CFD0116,116,DP 601,latest
+CFD0117,117,DP 602,latest
+CFD0118,118,DP 603,latest
+CFD0119,119,DP 604,latest
+CFD0120,120,DP 605,latest
+CFD0121,121,DP 606,latest
+CFD0122,122,DP 607,latest
+CFD0123,123,DP 608,latest
+CFD0124,124,DP 609,latest
+CFD0125,125,DP 610,latest
+CFD0126,126,DP 611,latest
+CFD0127,127,DP 614,latest
+CFD0128,128,DP 616,latest
+CFD0129,129,DP 617,latest
+CFD0130,130,DP 618,latest
+CFD0131,131,DP 619,latest
+CFD0132,132,DP 620,latest
+CFD0133,133,DP 621,latest
+CFD0134,134,DP 622,latest
+CFD0135,135,DP 623,latest
+CFD0136,136,prior_DP534,prior_actual
+CFD0137,137,prior_DP535,prior_actual
+CFD0138,138,prior_DP536,prior_actual
+CFD0139,139,prior_DP537,prior_actual
+CFD0140,140,prior_DP538,prior_actual
+CFD0141,141,prior_DP539,prior_actual
+CFD0142,142,prior_DP540,prior_actual
+CFD0143,143,prior_DP541,prior_actual
+CFD0144,144,prior_DP542,prior_actual
+CFD0145,145,prior_DP543,prior_actual
+CFD0146,146,prior_DP544,prior_actual
+CFD0147,147,prior_DP545,prior_actual
+CFD0148,148,prior_DP546,prior_actual
+CFD0149,149,prior_DP547,prior_actual
+CFD0150,150,prior_DP548,prior_actual
+CFD0151,151,prior_DP549,prior_actual
+CFD0152,152,prior_DP550,prior_actual
+CFD0153,153,prior_DP551,prior_actual
+CFD0154,154,prior_DP552,prior_actual
+CFD0155,155,prior_DP553,prior_actual
+CFD0156,156,prior_DP554,prior_actual
+CFD0157,157,prior_DP555,prior_actual
+CFD0158,158,prior_DP556,prior_actual
+CFD0159,159,prior_DP557,prior_actual
+CFD0160,160,prior_DP558,prior_actual
+CFD0161,161,prior_DP559,prior_actual
+CFD0162,162,prior_DP560,prior_actual
+CFD0163,163,prior_DP561,prior_actual
+CFD0164,164,prior_DP562,prior_actual
+CFD0165,165,prior_DP563,prior_actual
+CFD0166,166,prior_DP564,prior_actual
+CFD0167,167,prior_DP565,prior_actual
+CFD0168,168,prior_DP566,prior_actual
+CFD0169,169,prior_DP567,prior_actual
+CFD0170,170,prior_DP568,prior_actual
+CFD0171,171,prior_DP569,prior_actual
+CFD0172,172,prior_DP570,prior_actual
+CFD0173,173,prior_DP571,prior_actual
+CFD0174,174,prior_DP572,prior_actual
+CFD0175,175,prior_DP573,prior_actual
+CFD0176,176,prior_DP574,prior_actual
+CFD0177,177,prior_DP575,prior_actual
+CFD0178,178,prior_DP576,prior_actual
+CFD0179,179,prior_DP577,prior_actual
+CFD0180,180,prior_DP578,prior_actual
+CFD0181,181,prior_DP579,prior_actual
+CFD0182,182,prior_DP580,prior_actual
+CFD0183,183,prior_DP581,prior_actual
+CFD0184,184,prior_DP582,prior_actual
+CFD0185,185,prior_DP583,prior_actual
+CFD0186,186,prior_DP584,prior_actual
+CFD0187,187,prior_DP585,prior_actual
+CFD0188,188,prior_DP586,prior_actual
+CFD0189,189,prior_DP587,prior_actual
+CFD0190,190,prior_DP588,prior_actual
+CFD0191,191,prior_DP589,prior_actual
+CFD0192,192,prior_DP590,prior_actual
+CFD0193,193,prior_DP591,prior_actual
+CFD0194,194,prior_DP592,prior_actual
+CFD0195,195,prior_DP593,prior_actual
+CFD0196,196,DP 480;DP 502,paired
+CFD0197,197,DP 481,paired
+CFD0198,198,DP 482,paired
+CFD0199,199,DP 483,paired
+CFD0200,200,DP 484,paired
+CFD0201,201,DP 485,paired
+CFD0202,202,DP 486,paired
+CFD0203,203,DP 487;DP 503,paired
+CFD0204,204,DP 488,paired
+CFD0205,205,DP 489,paired
+CFD0206,206,DP 490,paired
+CFD0207,207,DP 491,paired
+CFD0208,208,DP 492,paired
+CFD0209,209,DP 493;DP 521,paired
+CFD0210,210,DP 494,paired
+CFD0211,211,DP 495,paired
+CFD0212,212,DP 496,paired
+CFD0213,213,DP 497,paired
+CFD0214,214,DP 498,paired
+CFD0215,215,DP 499,paired
+CFD0216,216,DP 500,paired
+CFD0217,217,DP 501,paired
+CFD0218,218,DP 504,paired
+CFD0219,219,DP 505,paired
+CFD0220,220,DP 506,paired
+CFD0221,221,DP 507,paired
+CFD0222,222,DP 508,paired
+CFD0223,223,DP 509,paired
+CFD0224,224,DP 510,paired
+CFD0225,225,DP 511,paired
+CFD0226,226,DP 512,paired
+CFD0227,227,DP 513,paired
+CFD0228,228,DP 514,paired
+CFD0229,229,DP 515,paired
+CFD0230,230,DP 516,paired
+CFD0231,231,DP 517,paired
+CFD0232,232,DP 518,paired
+CFD0233,233,DP 519,paired
+CFD0234,234,DP 520,paired
+CFD0235,235,DP 522,paired
+CFD0236,236,DP 523,paired
+CFD0237,237,DP 524,paired
+CFD0238,238,DP 525,paired
+CFD0239,239,DP 526,paired
+CFD0240,240,DP 527,paired
+CFD0241,241,DP 528,paired
+CFD0242,242,DP 529,paired
+CFD0243,243,DP 530,paired
+CFD0244,244,DP 531,paired
+CFD0245,245,DP 532,paired
+CFD0246,246,DP 533,paired
+CFD0247,247,687:Length2.csv:DP 12:row235,old687
+CFD0248,248,687:Design1.csv:DP 26:row35,old687
+CFD0249,249,687:Design2(update).csv:DP 30:row156,old687
+CFD0250,250,687:supplement4.csv:DP 39:row624,old687
+CFD0251,251,687:Design2(update).csv:DP 34:row160;687:supplement4.csv:DP 125:row510,old687
+CFD0252,252,687:Design1.csv:DP 13:row22,old687
+CFD0253,253,687:Design2(update).csv:DP 27:row152,old687
+CFD0254,254,687:Design2(update).csv:DP 40:row167,old687
+CFD0255,255,687:Design2(update).csv:DP 39:row165,old687
+CFD0256,256,687:Length2.csv:DP 16:row239;687:Supplement3.csv:DP 35:row392,old687
+CFD0257,257,687:Design2(update).csv:DP 28:row153,old687
+CFD0258,258,687:Length2.csv:DP 15:row238,old687
+CFD0259,259,687:Design2(update).csv:DP 23:row148;687:supplement4.csv:DP 139:row525,old687
+CFD0260,260,687:Design1.csv:DP 23:row32,old687
+CFD0261,261,687:Design2(update).csv:DP 42:row169,old687
+CFD0262,262,687:Design2(update).csv:DP 52:row179,old687
+CFD0263,263,687:Design1.csv:DP 41:row52,old687
+CFD0264,264,687:Design2(update).csv:DP 51:row178,old687
+CFD0265,265,687:Supplement2.csv:DP 7:row363,old687
+CFD0266,266,687:supplement4.csv:DP 28:row613,old687
+CFD0267,267,687:Design2(update).csv:DP 35:row161;687:supplement4.csv:DP 140:row527,old687
+CFD0268,268,687:Design1.csv:DP 66:row79;687:supplement4.csv:DP 170:row560,old687
+CFD0269,269,687:Design2(update).csv:DP 64:row192,old687
+CFD0270,270,687:Design1.csv:DP 54:row66;687:supplement4.csv:DP 161:row550,old687
+CFD0271,271,687:Supplement2.csv:DP 12:row354,old687
+CFD0272,272,687:Design1.csv:DP 4:row50;687:supplement4.csv:DP 103:row486,old687
+CFD0273,273,687:Length2.csv:DP 9:row252,old687
+CFD0274,274,687:Design2(update).csv:DP 85:row215,old687
+CFD0275,275,687:supplement4.csv:DP 44:row629,old687
+CFD0276,276,687:Design2(update).csv:DP 63:row191,old687
+CFD0277,277,687:Design2(update).csv:DP 97:row228;687:supplement4.csv:DP 31:row616,old687
+CFD0278,278,687:supplement4.csv:DP 38:row623,old687
+CFD0279,279,687:Bulge_Diameter.csv:DP 6:row14,old687
+CFD0280,280,687:Design1.csv:DP 3:row39,old687
+CFD0281,281,687:Design1.csv:DP 37:row47,old687
+CFD0282,282,687:Design1.csv:DP 6:row72,old687
+CFD0283,283,687:Design1.csv:DP 9:row99,old687
+CFD0284,284,687:Design2(update).csv:DP 73:row202,old687
+CFD0285,285,687:Supplement2.csv:DP 13:row355,old687
+CFD0286,286,687:Design2(update).csv:DP 46:row172;687:Supplement3.csv:DP 10:row367;687:supplement4.csv:DP 126:row511,old687
+CFD0287,287,687:Supplement1.csv:DP 47:row295;687:supplement4.csv:DP 150:row538,old687
+CFD0288,288,687:Length2.csv:DP 13:row236;687:Supplement3.csv:DP 34:row391;687:supplement4.csv:DP 27:row612,old687
+CFD0289,289,687:Design1.csv:DP 7:row83,old687
+CFD0290,290,687:Design1.csv:DP 51:row63;687:supplement4.csv:DP 158:row546,old687
+CFD0291,291,687:Design2(update).csv:DP 61:row189;687:Supplement3.csv:DP 27:row384;687:supplement4.csv:DP 23:row608,old687
+CFD0292,292,687:Design1.csv:DP 52:row64;687:supplement4.csv:DP 159:row547,old687
+CFD0293,293,687:Design1.csv:DP 63:row76;687:supplement4.csv:DP 167:row556,old687
+CFD0294,294,687:supplement4.csv:DP 43:row628,old687
+CFD0295,295,687:Design2(update).csv:DP 15:row139,old687
+CFD0296,296,687:Design2(update).csv:DP 49:row175,old687
+CFD0297,297,687:Design1.csv:DP 64:row77;687:supplement4.csv:DP 168:row557,old687
+CFD0298,298,687:Design1.csv:DP 47:row58;687:supplement4.csv:DP 88:row673,old687
+CFD0299,299,687:Design1.csv:DP 55:row67;687:supplement4.csv:DP 162:row551,old687
+CFD0300,300,687:Design1.csv:DP 8:row94;687:supplement4.csv:DP 104:row487,old687
